@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Proteger mi cuenta — Gasto Fácil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0456C5" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+</head>
+<body>
+  <main class="main main--auth">
+    <section class="auth-card">
+      <div class="auth-hero">
+        <h1 class="auth-title">Proteger y recuperar mi cuenta</h1>
+        <p class="auth-subtitle">Convierte tu cuenta de invitado en una cuenta permanente sin perder tus gastos.</p>
+      </div>
+
+      <div id="statusMessage" class="info-message" style="display:none; margin-bottom:1rem"></div>
+      <div id="errorMessage" class="error-message" style="display:none; margin-bottom:1rem"></div>
+
+      <div id="anonymousSection" style="display:none">
+        <div class="form-group">
+          <label class="form-label">Correo electrónico</label>
+          <input id="emailInput" type="email" class="form-input" placeholder="tú@correo.com" required />
+        </div>
+        <button id="protectButton" class="btn btn--primary btn--block">Proteger mi cuenta</button>
+        <p class="help-text">Recibirás un correo de confirmación. Confirma antes de establecer tu contraseña.</p>
+      </div>
+
+      <div id="passwordSection" style="display:none">
+        <div class="form-group">
+          <label class="form-label">Correo</label>
+          <input id="currentEmail" type="email" class="form-input" readonly />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nueva contraseña</label>
+          <input id="passwordInput" type="password" class="form-input" placeholder="Nueva contraseña" required />
+        </div>
+        <button id="passwordButton" class="btn btn--primary btn--block">Establecer contraseña</button>
+        <a href="/restablecer-contrasena.html" class="btn btn--outline btn--block">Olvidé mi contraseña</a>
+      </div>
+
+      <button id="signOutButton" class="btn btn--text btn--block" style="margin-top:1rem">Cerrar sesión</button>
+    </section>
+  </main>
+
+  <script type="module" src="/js/account.js"></script>
+  <script src="/js/pwa-register.js" defer></script>
+</body>
+</html>

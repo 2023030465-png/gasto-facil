@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Restablecer contraseña — Gasto Fácil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0456C5" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+</head>
+<body>
+  <main class="main main--auth">
+    <section class="auth-card">
+      <div class="auth-hero">
+        <h1 class="auth-title">Restablecer contraseña</h1>
+        <p class="auth-subtitle">Sigue el enlace del correo y elige una nueva contraseña segura.</p>
+      </div>
+
+      <div id="statusMessage" class="info-message" style="display:none; margin-bottom:1rem"></div>
+      <div id="errorMessage" class="error-message" style="display:none; margin-bottom:1rem"></div>
+
+      <div id="recoveryInfo" class="help-text" style="margin-bottom:1rem; display:none"></div>
+      <form id="recoveryForm" class="form" style="display:none">
+        <div class="form-group">
+          <label class="form-label">Nueva contraseña</label>
+          <input id="newPassword" type="password" class="form-input" placeholder="Nueva contraseña" required />
+        </div>
+        <button type="submit" class="btn btn--primary btn--block">Guardar contraseña</button>
+      </form>
+
+      <div id="waiting" class="help-text" style="display:none;">Esperando el enlace de recuperación del correo...</div>
+    </section>
+  </main>
+
+  <script type="module" src="/js/reset-password.js"></script>
+  <script src="/js/pwa-register.js" defer></script>
+</body>
+</html>

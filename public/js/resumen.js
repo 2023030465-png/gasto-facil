@@ -1,4 +1,4 @@
-import { supabase, initSupabaseSession } from './supabase.js';
+import { supabase, ensureAuthenticated } from './supabase.js';
 import { formatCurrency, setActiveNav } from './common.js';
 
 const totalMesEl = document.getElementById('totalMes');
@@ -31,9 +31,10 @@ function buildDonutSvg(categorias) {
 async function load() {
   setActiveNav('resumen');
   try {
-    const userId = await initSupabaseSession();
-    const now = new Date();
-    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+    const user = await ensureAuthenticated();
+    if (!user) return;
+    const userId = user.id;
+    const now = new Date();    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
     const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString();
     const firstDayPrev = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString();
     const lastDayPrev = new Date(now.getFullYear(), now.getMonth(), 0).toISOString();

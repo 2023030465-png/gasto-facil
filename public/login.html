@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Iniciar sesión — Gasto Fácil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0456C5" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+</head>
+<body>
+  <main class="main main--auth">
+    <section class="auth-card">
+      <div class="auth-hero">
+        <h1 class="auth-title">Iniciar sesión</h1>
+        <p class="auth-subtitle">Ingresa tu correo y contraseña para recuperar tus gastos en otro dispositivo.</p>
+      </div>
+
+      <form id="loginForm" class="form">
+        <div class="form-group">
+          <label class="form-label">Correo electrónico</label>
+          <input id="email" type="email" class="form-input" placeholder="tú@correo.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contraseña</label>
+          <input id="password" type="password" class="form-input" placeholder="Contraseña" required />
+        </div>
+        <div id="message" class="error-message" style="display:none; margin-bottom:1rem"></div>
+        <button type="submit" class="btn btn--primary btn--block">Entrar</button>
+      </form>
+
+      <div class="auth-actions" style="margin-top:1rem; gap:.75rem; display:flex; flex-direction:column;">
+        <a href="/forgot-password.html" class="btn btn--outline btn--block">Olvidé mi contraseña</a>
+        <a href="/welcome.html" class="btn btn--text btn--block">Continuar como invitado</a>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/js/login.js"></script>
+  <script src="/js/pwa-register.js" defer></script>
+</body>
+</html>

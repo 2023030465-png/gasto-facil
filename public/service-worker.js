@@ -1,7 +1,11 @@
-const CACHE_NAME = 'gasto-facil-cache-v2';
+const CACHE_NAME = 'gasto-facil-cache-v4';
 const ASSETS = [
   '/',
   '/index.html',
+  '/welcome.html',
+  '/login.html',
+  '/account.html',
+  '/restablecer-contrasena.html',
   '/css/main.css',
   '/manifest.json',
   '/js/pwa-register.js',
@@ -14,6 +18,10 @@ const ASSETS = [
   '/js/confirmar-gasto.js',
   '/js/resumen.js',
   '/js/supabase.js',
+  '/js/welcome.js',
+  '/js/login.js',
+  '/js/account.js',
+  '/js/reset-password.js',
   '/404.html',
   '/escanear/',
   '/escanear/confirmar/',
@@ -54,8 +62,12 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  if (['style', 'script', 'image', 'font'].includes(event.request.destination)) {
+  if (['style', 'image', 'font'].includes(event.request.destination)) {
     event.respondWith(cacheFirstWithUpdate(event.request));
+    return;
+  }
+  if (event.request.destination === 'script') {
+    event.respondWith(networkFirst(event.request));
     return;
   }
 

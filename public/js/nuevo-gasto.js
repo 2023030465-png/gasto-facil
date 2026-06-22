@@ -1,4 +1,4 @@
-import { supabase, initSupabaseSession } from './supabase.js';
+import { supabase, ensureAuthenticated } from './supabase.js';
 import { setActiveNav } from './common.js';
 
 const form = document.getElementById('expenseForm');
@@ -15,7 +15,8 @@ async function handleSubmit(event) {
   const notas = formData.get('notas');
 
   try {
-    const userId = await initSupabaseSession();
+    const user = await ensureAuthenticated();
+    if (!user) return;
     const { error } = await supabase.from('gastos').insert([{
       concepto: concept,
       monto,
@@ -23,7 +24,7 @@ async function handleSubmit(event) {
       categoria,
       metodo_pago,
       notas,
-      user_id: userId,
+      user_id: user.id,
       created_at: new Date().toISOString()
     }]);
 
@@ -35,7 +36,9 @@ async function handleSubmit(event) {
   }
 }
 
-function load() {
+async function load() {
+  const user = await ensureAuthenticated();
+  if (!user) return;
   setActiveNav('gastos');
   const fechaInput = document.querySelector('input[name="fecha"]');
   if (fechaInput && !fechaInput.value) {

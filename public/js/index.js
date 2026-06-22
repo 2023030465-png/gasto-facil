@@ -1,4 +1,4 @@
-import { supabase, initSupabaseSession } from './supabase.js';
+import { supabase, ensureAuthenticated } from './supabase.js';
 import { formatCurrency, setActiveNav, formatDate } from './common.js';
 
 const totalMesEl = document.getElementById('totalMes');
@@ -13,7 +13,9 @@ const errorEl = document.getElementById('pageError');
 async function load() {
   setActiveNav('inicio');
   try {
-    const userId = await initSupabaseSession();
+    const user = await ensureAuthenticated();
+    if (!user) return;
+    const userId = user.id;
     const now = new Date();
     const firstDay = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
     const lastDay = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()).padStart(2, '0')}`;

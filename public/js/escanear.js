@@ -1,5 +1,6 @@
 import { ANALYZE_FUNCTION_PATH } from './config.js';
 import { setActiveNav, setTicketData } from './common.js';
+import { ensureAuthenticated } from './supabase.js';
 
 const video = document.getElementById('videoEl');
 const canvas = document.getElementById('canvasEl');
@@ -86,7 +87,9 @@ btnAnalyze.addEventListener('click', async () => {
   }
 });
 
-function load() {
+async function load() {
+  const user = await ensureAuthenticated();
+  if (!user) return;
   setActiveNav('escanear');
   startCamera();
 }
