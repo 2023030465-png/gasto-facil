@@ -33,6 +33,7 @@
     <div class="page-header">
       <h1 class="page-header__title">Resumen</h1>
       <p class="page-header__sub">Análisis de tus finanzas este mes</p>
+      <button id="exportPdfBtn" class="btn btn--primary" type="button">Descargar reporte PDF</button>
     </div>
 
     <div class="summary-card summary-card--resumen">
@@ -91,6 +92,8 @@
     </a>
   </nav>
 
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@5.0.8/dist/jspdf.plugin.autotable.min.js"></script>
   <script type="module" src="/js/resumen.js"></script>
   <script src="/js/pwa-register.js" defer></script>
 </body>

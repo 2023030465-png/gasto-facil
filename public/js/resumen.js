@@ -1,7 +1,12 @@
 import { supabase, ensureAuthenticated } from './supabase.js';
 import { formatCurrency, setActiveNav } from './common.js';
+import { exportarGastosAPdf } from './exportar-pdf.js';
 
 const totalMesEl = document.getElementById('totalMes');
+const exportPdfBtn = document.getElementById('exportPdfBtn');
+let gastosMesData = [];
+let usuarioActual = null;
+let isExportingPdf = false;
 const porcentajeEl = document.getElementById('porcentajeCambio');
 const categoriaTopNameEl = document.getElementById('categoriaTopName');
 const categoriaTopPctEl = document.getElementById('categoriaTopPct');
@@ -44,7 +49,13 @@ async function load() {
       supabase.from('gastos').select('monto').eq('user_id', userId).gte('fecha', firstDayPrev).lte('fecha', lastDayPrev)
     ]);
 
-    const totalMes = (gastosMes || []).reduce((sum, g) => sum + parseFloat(g.monto || 0), 0);
+    gastosMesData = gastosMes || [];
+    usuarioActual = user;
+    if (exportPdfBtn) {
+      exportPdfBtn.disabled = false;
+    }
+
+    const totalMes = (gastosMesData || []).reduce((sum, g) => sum + parseFloat(g.monto || 0), 0);
     const totalPrev = (gastosPrev || []).reduce((sum, g) => sum + parseFloat(g.monto || 0), 0);
     const porcentajeCambio = totalPrev > 0 ? (((totalMes - totalPrev) / totalPrev) * 100).toFixed(0) : 0;
 
@@ -98,6 +109,36 @@ async function load() {
     noDataEl.textContent = error.message || 'Error al cargar el resumen';
     noDataEl.style.display = 'block';
   }
+}
+
+async function handleExportClick() {
+  if (isExportingPdf || !exportPdfBtn) return;
+  if (!usuarioActual) return;
+  if (!gastosMesData.length) {
+    alert('No hay gastos para exportar');
+    return;
+  }
+
+  isExportingPdf = true;
+  const label = exportPdfBtn.textContent;
+  exportPdfBtn.textContent = 'Generando PDF...';
+  exportPdfBtn.disabled = true;
+
+  try {
+    await exportarGastosAPdf({ gastos: gastosMesData, usuario: usuarioActual });
+  } catch (error) {
+    console.error(error);
+    alert(error.message || 'Error al generar el PDF');
+  } finally {
+    exportPdfBtn.disabled = false;
+    exportPdfBtn.textContent = label;
+    isExportingPdf = false;
+  }
+}
+
+if (exportPdfBtn) {
+  exportPdfBtn.disabled = true;
+  exportPdfBtn.addEventListener('click', handleExportClick);
 }
 
 window.addEventListener('DOMContentLoaded', load);
