@@ -1,16 +1,13 @@
+import { jsPDF } from 'https://cdn.jsdelivr.net/npm/jspdf@4.2.1/+esm';
+import { autoTable } from 'https://cdn.jsdelivr.net/npm/jspdf-autotable@5.0.8/+esm';
+
 export async function exportarGastosAPdf({ gastos, usuario }) {
   if (!Array.isArray(gastos) || gastos.length === 0) {
     throw new Error('No hay gastos para exportar');
   }
 
-  const jsPDFGlobal = window.jspdf;
-  if (!jsPDFGlobal || typeof jsPDFGlobal.jsPDF !== 'function') {
-    throw new Error('No se cargó la librería jsPDF. Recarga la página e intenta de nuevo.');
-  }
-
-  const { jsPDF } = jsPDFGlobal;
-  if (typeof jsPDF.prototype.autoTable !== 'function') {
-    throw new Error('No se cargó la librería jsPDF-AutoTable. Recarga la página e intenta de nuevo.');
+  if (typeof jsPDF !== 'function' || typeof autoTable !== 'function') {
+    throw new Error('No se pudieron cargar las librerías para generar el PDF.');
   }
 
   const formatCurrencyMXN = value => new Intl.NumberFormat('es-MX', {
@@ -65,7 +62,7 @@ export async function exportarGastosAPdf({ gastos, usuario }) {
     formatCurrencyMXN(gasto.monto)
   ]);
 
-  doc.autoTable({
+  autoTable(doc, {
     startY: 62,
     head: [[
       'Fecha',
