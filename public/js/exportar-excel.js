@@ -242,7 +242,11 @@ export async function exportarGastosAExcel({ gastos, usuario, periodo }) {
   const totalRow = wsDetalle.getRow(totalRowNum);
   totalRow.getCell(1).value = 'TOTAL';
   totalRow.getCell(1).font = { bold: true, size: 11 };
-  totalRow.getCell(5).value = totalGastos;
+  totalRow.getCell(5).value = {
+  formula: `SUM(E${startRow}:E${totalRowNum - 1})`,
+  result: totalGastos
+};
+
   totalRow.getCell(5).numFmt = '"$"#,##0.00';
   totalRow.getCell(5).font = { bold: true, size: 11 };
 
@@ -264,9 +268,8 @@ export async function exportarGastosAExcel({ gastos, usuario, periodo }) {
   // Congela el encabezado
   wsDetalle.views = [{ state: 'frozen', ySplit: 1 }];
 
-  // Agrega filtro automático
-  wsDetalle.autoFilter.from = { row: 1, column: 1 };
-  wsDetalle.autoFilter.to = { row: 1, column: 5 };
+  // Agrega filtro automático al encabezado
+wsDetalle.autoFilter = `A${headerRow.number}:E${headerRow.number}`;
 
   // Anchos de columnas
   wsDetalle.getColumn(1).width = 14;
