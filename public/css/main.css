@@ -338,6 +338,7 @@ input, select, textarea { font-family: var(--font); }
 .page-header { display: flex; flex-direction: column; gap: 4px; }
 .page-header__title { font-size: 28px; font-weight: 700; color: var(--gray-1); letter-spacing: -0.28px; }
 .page-header__sub { font-size: 16px; color: var(--gray-2); }
+.export-buttons-group { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
 
 /* ── SEARCH ── */
 .search-wrapper { position: relative; display: flex; align-items: center; }
@@ -439,6 +440,8 @@ input, select, textarea { font-family: var(--font); }
 }
 .btn:hover { opacity: 0.92; transform: scale(0.99); }
 .btn--primary { background: var(--blue); color: white; box-shadow: var(--shadow-blue); }
+.btn--excel { background: #10B981; color: white; box-shadow: 0 4px 12px -4px rgba(16, 185, 129, 0.3); }
+.btn--excel:hover { background: #059669; }
 .btn--outline { border: 2px solid var(--blue); color: var(--blue); background: transparent; }
 .btn--icon-left { width: auto; padding: 17px 26px; }
 .link-blue { color: var(--blue); font-size: 16px; }

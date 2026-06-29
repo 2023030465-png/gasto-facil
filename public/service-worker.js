@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gasto-facil-cache-v6';
+const CACHE_NAME = 'gasto-facil-cache-v7';
 const ASSETS = [
   '/',
   '/index.html',
@@ -18,11 +18,13 @@ const ASSETS = [
   '/js/confirmar-gasto.js',
   '/js/resumen.js',
   '/js/exportar-pdf.js',
+  '/js/exportar-excel.js',
   '/js/supabase.js',
   '/js/welcome.js',
   '/js/login.js',
   '/js/account.js',
   '/js/reset-password.js',
+  '/vendor/exceljs.min.js',
   '/404.html',
   '/escanear/',
   '/escanear/confirmar/',

@@ -1,12 +1,15 @@
 import { supabase, ensureAuthenticated } from './supabase.js';
 import { formatCurrency, setActiveNav } from './common.js';
 import { exportarGastosAPdf } from './exportar-pdf.js';
+import { exportarGastosAExcel } from './exportar-excel.js';
 
 const totalMesEl = document.getElementById('totalMes');
 const exportPdfBtn = document.getElementById('exportPdfBtn');
+const exportExcelBtn = document.getElementById('exportExcelBtn');
 let gastosMesData = [];
 let usuarioActual = null;
 let isExportingPdf = false;
+let isExportingExcel = false;
 const porcentajeEl = document.getElementById('porcentajeCambio');
 const categoriaTopNameEl = document.getElementById('categoriaTopName');
 const categoriaTopPctEl = document.getElementById('categoriaTopPct');
@@ -53,6 +56,9 @@ async function load() {
     usuarioActual = user;
     if (exportPdfBtn) {
       exportPdfBtn.disabled = false;
+    }
+    if (exportExcelBtn) {
+      exportExcelBtn.disabled = false;
     }
 
     const totalMes = (gastosMesData || []).reduce((sum, g) => sum + parseFloat(g.monto || 0), 0);
@@ -139,6 +145,42 @@ async function handleExportClick() {
 if (exportPdfBtn) {
   exportPdfBtn.disabled = true;
   exportPdfBtn.addEventListener('click', handleExportClick);
+}
+
+async function handleExcelExportClick() {
+  if (isExportingExcel || !exportExcelBtn) return;
+  if (!usuarioActual) return;
+  if (!gastosMesData.length) {
+    alert('No hay gastos para exportar');
+    return;
+  }
+
+  isExportingExcel = true;
+  const label = exportExcelBtn.textContent;
+  exportExcelBtn.textContent = 'Generando Excel...';
+  exportExcelBtn.disabled = true;
+
+  try {
+    const now = new Date();
+    const periodo = now.toLocaleString('es-MX', { month: 'long', year: 'numeric' });
+    await exportarGastosAExcel({
+      gastos: gastosMesData,
+      usuario: usuarioActual,
+      periodo: periodo
+    });
+  } catch (error) {
+    console.error(error);
+    alert(error.message || 'Error al generar el Excel');
+  } finally {
+    exportExcelBtn.disabled = false;
+    exportExcelBtn.textContent = label;
+    isExportingExcel = false;
+  }
+}
+
+if (exportExcelBtn) {
+  exportExcelBtn.disabled = true;
+  exportExcelBtn.addEventListener('click', handleExcelExportClick);
 }
 
 window.addEventListener('DOMContentLoaded', load);

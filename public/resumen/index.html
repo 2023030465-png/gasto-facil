@@ -13,6 +13,8 @@
   <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
   <link rel="manifest" href="/manifest.json" />
+  <!-- ExcelJS Library -->
+  <script src="/vendor/exceljs.min.js" defer></script>
   <meta name="theme-color" content="#0456C5" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +35,10 @@
     <div class="page-header">
       <h1 class="page-header__title">Resumen</h1>
       <p class="page-header__sub">Análisis de tus finanzas este mes</p>
-      <button id="exportPdfBtn" class="btn btn--primary" type="button">Descargar reporte PDF</button>
+      <div class="export-buttons-group">
+        <button id="exportPdfBtn" class="btn btn--primary" type="button">Descargar reporte PDF</button>
+        <button id="exportExcelBtn" class="btn btn--excel" type="button">Descargar reporte Excel</button>
+      </div>
     </div>
 
     <div class="summary-card summary-card--resumen">
