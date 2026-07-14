@@ -1,3 +1,5 @@
+import { guardarArchivoReporte } from './native-file.js';
+
 export async function exportarGastosAExcel({ gastos, usuario, periodo }) {
   // Verifica que ExcelJS esté disponible
   if (!window.ExcelJS) {
@@ -289,42 +291,9 @@ wsDetalle.autoFilter = `A${headerRow.number}:E${headerRow.number}`;
       generationDate.getMonth() + 1
     ).padStart(2, '0')}-${String(generationDate.getDate()).padStart(2, '0')}.xlsx`;
 
-    // Intenta usar navigator.share para dispositivos móviles
-    if (navigator.canShare && navigator.canShare({ files: [new File([blob], filename)] })) {
-      try {
-        const file = new File([blob], filename, {
-          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        });
-        await navigator.share({
-          files: [file],
-          title: 'Reporte de gastos'
-        });
-        return; // Descarga/compartido exitosa
-      } catch (error) {
-        if (error.name === 'AbortError') {
-          // Usuario canceló, continúa con descarga tradicional
-        } else {
-          console.error('Error al compartir:', error);
-          throw error;
-        }
-      }
-    }
-
-    // Descarga tradicional para navegadores de escritorio
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // Libera la URL después de un pequeño retraso
-    setTimeout(() => {
-      URL.revokeObjectURL(url);
-    }, 100);
+    return await guardarArchivoReporte(blob, filename);
   } catch (error) {
     console.error('Error al generar el archivo Excel:', error);
-    throw new Error('Error al generar el archivo Excel');
+    throw error instanceof Error ? error : new Error('Error al generar el archivo Excel');
   }
 }

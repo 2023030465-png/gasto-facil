@@ -86,7 +86,7 @@ async function load() {
         }));
 
       monthlyTotalsEl.innerHTML = monthlyTotals.map(m => `
-        <a href="/resumen?year=${m.year}&month=${m.month}" class="month-card" style="min-width:160px; background:#fff; border-radius:10px; padding:1rem; box-shadow:0 6px 18px rgba(0,0,0,0.06); text-decoration:none; color:inherit;">
+        <a href="/resumen/index.html?year=${m.year}&month=${m.month}" class="month-card" style="min-width:160px; background:#fff; border-radius:10px; padding:1rem; box-shadow:0 6px 18px rgba(0,0,0,0.06); text-decoration:none; color:inherit;">
           <div style="font-size:0.9rem; color:#6b7280; margin-bottom:0.25rem;">${m.label}</div>
           <div style="font-weight:700; font-size:1.1rem; color:#0456C5">$${formatCurrency(m.total, 2)}</div>
         </a>
@@ -101,7 +101,7 @@ async function load() {
     expensesListEl.innerHTML = gastos.map(gasto => {
       const category = gasto.categoria || 'Otros';
       return `
-        <a href="/gastos/?categoria=${encodeURIComponent(category)}" class="expense-item">
+        <a href="/gastos/index.html?categoria=${encodeURIComponent(category)}" class="expense-item">
           <div class="expense-item__icon expense-item__icon--${category.toLowerCase().replace(/\s/g, '-')}">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
           </div>

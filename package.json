@@ -10,6 +10,11 @@
     "build": "node scripts/generate-config.js && node scripts/copy-vendors.js"
   },
   "dependencies": {
+    "@capacitor/android": "^8.4.1",
+    "@capacitor/cli": "^8.4.1",
+    "@capacitor/core": "^8.4.1",
+    "@capacitor/file-viewer": "^2.0.1",
+    "@capacitor/filesystem": "^8.1.2",
     "@supabase/supabase-js": "^2.38.4",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#0456C5" />
+  <title>Vista previa — Gasto Fácil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="manifest" href="/manifest.json" />
+  <style>
+    .preview-page{max-width:1080px;margin:0 auto;padding:1.1rem 1rem 2.4rem;color:#162033}
+    .preview-top{display:flex;align-items:center;gap:.8rem;margin:1rem 0 1.2rem}
+    .preview-back{width:40px;height:40px;border:1px solid #d9e0ea;background:#fff;border-radius:12px;display:grid;place-items:center;color:#0456c5;font-weight:800;text-decoration:none}
+    .preview-heading{min-width:0;flex:1}.preview-heading h1{font-size:1.15rem;margin:0;color:#162033}.preview-heading p{font-size:.76rem;margin:.2rem 0 0;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .preview-note{border:1px solid #cfe0fd;background:#f5f9ff;color:#0a4d9d;border-radius:14px;padding:.85rem 1rem;font-size:.82rem;line-height:1.45;margin-bottom:1rem}
+    .preview-sheet{background:#fff;border:1px solid #dce3ed;border-radius:18px;box-shadow:0 10px 26px rgba(15,23,42,.07);overflow:hidden}
+    .preview-sheet__head{padding:1.25rem 1.1rem;background:linear-gradient(135deg,#0456c5,#003d7a);color:white}.preview-sheet__head h2{font-size:1.12rem;margin:0 0 .35rem}.preview-sheet__head p{font-size:.78rem;line-height:1.45;margin:.12rem 0;opacity:.93}
+    .preview-summary{padding:1rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}.preview-summary__card{border:1px solid #e1e7ef;border-radius:13px;padding:.8rem;background:#fff}.preview-summary__label{display:block;color:#64748b;font-size:.68rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase}.preview-summary__value{display:block;color:#162033;font-size:1rem;font-weight:800;margin-top:.25rem}
+    .preview-tabs{display:flex;gap:.55rem;padding:0 1rem 1rem}.preview-tab{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:.55rem .78rem;color:#334155;font:700 .77rem/1 'Plus Jakarta Sans',sans-serif}.preview-tab.is-active{color:#fff;background:#0456c5;border-color:#0456c5}
+    .preview-body{padding:0 1rem 1.2rem}.preview-section-title{font-size:.86rem;margin:0 0 .8rem;color:#1e293b}.preview-table-wrap{overflow:auto;border:1px solid #e1e7ef;border-radius:12px}.preview-table{border-collapse:collapse;width:100%;min-width:660px;font-size:.76rem}.preview-table th{background:#eff6ff;color:#164a85;font-weight:800;text-align:left;padding:.72rem;border-bottom:1px solid #d9e6f7;white-space:nowrap}.preview-table td{padding:.7rem;border-bottom:1px solid #edf1f5;color:#334155;vertical-align:top}.preview-table tr:last-child td{border-bottom:0}.preview-table .amount{text-align:right;font-weight:700;white-space:nowrap}.preview-total{display:flex;justify-content:flex-end;gap:.9rem;align-items:center;margin-top:.85rem;padding:.85rem;border-radius:12px;background:#eff6ff;color:#0f3e75;font-weight:800;font-size:.85rem}
+    .preview-empty{padding:2rem 1rem;text-align:center;color:#64748b;font-size:.85rem}.preview-footer{margin-top:1rem;text-align:center;color:#64748b;font-size:.72rem}.preview-footer a{color:#0456c5;font-weight:700;text-decoration:none}
+    .excel-info{padding:1rem;border-top:1px solid #edf1f5}.excel-info__row{display:flex;justify-content:space-between;gap:.75rem;padding:.6rem 0;border-bottom:1px solid #edf1f5;font-size:.78rem}.excel-info__row:last-child{border-bottom:0}.excel-info__row span:first-child{color:#64748b}.excel-info__row strong{text-align:right;color:#1e293b}
+    @media (min-width:720px){.preview-page{padding:1.5rem}.preview-summary{grid-template-columns:repeat(4,minmax(0,1fr))}.preview-sheet__head{padding:1.5rem}.preview-body{padding:0 1.25rem 1.5rem}}
+  </style>
+</head>
+<body>
+  <main class="preview-page">
+    <div class="preview-top">
+      <a class="preview-back" href="/resumen/index.html" aria-label="Volver al resumen">←</a>
+      <div class="preview-heading">
+        <h1>Vista previa del reporte</h1>
+        <p id="fileName">Cargando reporte…</p>
+      </div>
+    </div>
+    <div id="previewRoot" aria-live="polite"></div>
+  </main>
+  <script type="module" src="/js/visor-reporte.js"></script>
+</body>
+</html>

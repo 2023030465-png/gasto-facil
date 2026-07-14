@@ -1,0 +1,35 @@
+PARCHE: Boton para enviar reporte de gastos por WhatsApp con Whapi
+
+Este parche agrega:
+- netlify/functions/enviar-reporte-whatsapp.js
+- public/js/whatsapp-reporte.js
+- public/resumen/index.html
+- public/js/resumen.js
+
+IMPORTANTE:
+El token de Whapi NO va en el codigo. Debe estar en Netlify como variable de entorno:
+WHAPI_TOKEN
+
+PASOS:
+1. Extrae este ZIP dentro de C:\gasto-facil.
+2. Cuando Windows pregunte si deseas reemplazar archivos, elige "Si a todo".
+3. En Netlify verifica que exista la variable WHAPI_TOKEN en Functions/Production.
+4. Sube los cambios a GitHub:
+   cd C:\gasto-facil
+   git add .
+   git commit -m "Agregar envio de reporte por WhatsApp"
+   git push
+5. Espera que Netlify publique el deploy.
+6. Para Android ejecuta:
+   cd C:\gasto-facil
+   npx cap sync android
+7. Abre Android Studio y ejecuta la app.
+
+En Resumen aparecera un nuevo boton:
+Enviar reporte por WhatsApp
+
+Cuando lo presiones, te pedira el numero con lada. Ejemplo Mexico:
+521XXXXXXXXXX
+
+El reporte se envia a traves de la funcion de Netlify:
+https://jolly-mandazi-4b4269.netlify.app/.netlify/functions/enviar-reporte-whatsapp

@@ -72,7 +72,7 @@ btnAnalyze.addEventListener('click', async () => {
       const data = await response.json();
       if (data.ok) {
         setTicketData(data.datos);
-        window.location.href = '/escanear/confirmar/';
+        window.location.href = '/escanear/confirmar/index.html';
       } else {
         alert('Error al analizar: ' + (data.error || 'Intenta de nuevo'));
         loadingOverlay.style.display = 'none';

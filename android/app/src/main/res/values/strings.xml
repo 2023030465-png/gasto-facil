@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">gasto-facil</string>
+    <string name="title_activity_main">gasto-facil</string>
+    <string name="package_name">com.vilomar.gastofacil</string>
+    <string name="custom_url_scheme">com.vilomar.gastofacil</string>
+</resources>

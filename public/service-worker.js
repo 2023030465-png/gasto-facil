@@ -26,11 +26,11 @@ const ASSETS = [
   '/js/reset-password.js',
   '/vendor/exceljs.min.js',
   '/404.html',
-  '/escanear/',
-  '/escanear/confirmar/',
-  '/gastos/',
-  '/gastos/nuevo/',
-  '/resumen/',
+  '/escanear/index.html',
+  '/escanear/confirmar/index.html',
+  '/gastos/index.html',
+  '/gastos/nuevo/index.html',
+  '/resumen/index.html',
   '/icons/icon-192.png',
   '/icons/icon-512.png'
 ];

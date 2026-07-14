@@ -7,7 +7,7 @@ const messageEl = document.getElementById('confirmMessage');
 function loadTicketData() {
   const datos = getTicketData();
   if (!datos) {
-    window.location.href = '/escanear/';
+    window.location.href = '/escanear/index.html';
     return;
   }
 
@@ -49,7 +49,7 @@ async function handleSubmit(event) {
 
     if (error) throw error;
     clearTicketData();
-    window.location.href = '/gastos/';
+    window.location.href = '/gastos/index.html';
   } catch (err) {
     messageEl.textContent = err.message || 'No se pudo guardar el gasto';
     messageEl.style.display = 'block';

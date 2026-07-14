@@ -1,0 +1,23 @@
+PARCHE: abrir PDF y Excel con el visor real del teléfono
+
+Este parche elimina la vista previa interna anterior. Al tocar PDF o Excel, el archivo se guarda y Android intenta abrir el archivo REAL inmediatamente con una app compatible del teléfono.
+
+PASOS:
+1. Extrae este ZIP en C:\gasto-facil y elige “Sí a todo” cuando Windows pregunte por reemplazar archivos.
+2. Abre la Terminal en Android Studio o PowerShell dentro de C:\gasto-facil.
+3. Ejecuta exactamente:
+
+   npm install @capacitor/file-viewer@2.0.1
+   npx cap sync android
+
+4. En Android Studio, confirma que esté seleccionado tu Samsung SM-S938B y presiona ▶ Run para reinstalar la app.
+
+RESULTADO:
+- PDF se abrirá con el visor predeterminado del teléfono (por ejemplo, Adobe Acrobat, Google Drive o el visor de Samsung).
+- Excel se abrirá con Microsoft Excel, Google Sheets, WPS Office u otra app compatible.
+- La primera vez Android puede mostrar un selector para que elijas con qué aplicación abrir el archivo. Después puedes seleccionar “Siempre” para que se abra automáticamente con esa app.
+- Al regresar con el botón Atrás, vuelves a Gasto Fácil.
+
+IMPORTANTE:
+El archivo sigue guardándose en: Mis archivos > Documentos > GastoFacil > Reportes.
+La carpeta public/visor-reporte/ anterior ya no se usa. Puedes eliminarla manualmente si quieres, pero no afecta el funcionamiento si la dejas.

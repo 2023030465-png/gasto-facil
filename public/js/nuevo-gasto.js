@@ -29,7 +29,7 @@ async function handleSubmit(event) {
     }]);
 
     if (error) throw error;
-    window.location.href = '/gastos/';
+    window.location.href = '/gastos/index.html';
   } catch (err) {
     messageEl.textContent = err.message || 'No se pudo guardar el gasto';
     messageEl.style.display = 'block';

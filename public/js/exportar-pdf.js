@@ -1,3 +1,4 @@
+import { guardarArchivoReporte } from './native-file.js';
 import { jsPDF } from 'https://cdn.jsdelivr.net/npm/jspdf@4.2.1/+esm';
 import { autoTable } from 'https://cdn.jsdelivr.net/npm/jspdf-autotable@5.0.8/+esm';
 
@@ -22,17 +23,13 @@ export async function exportarGastosAPdf({ gastos, usuario }) {
   };
 
   const parseDate = dateString => {
-    const date = new Date(String(dateString).replace(' ', 'T'));
-    if (Number.isNaN(date.getTime())) return '';
-    return date.toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const raw = String(dateString || '').slice(0, 10);
+    if (!raw) return '';
+    const [year, month, day] = raw.split('-');
+    return year && month && day ? `${day}/${month}/${year}` : raw;
   };
 
-  const sortedGastos = [...gastos].sort((a, b) => {
-    const dateA = new Date(String(a.fecha).replace(' ', 'T')).getTime();
-    const dateB = new Date(String(b.fecha).replace(' ', 'T')).getTime();
-    return dateB - dateA;
-  });
-
+  const sortedGastos = [...gastos].sort((a, b) => String(b.fecha || '').localeCompare(String(a.fecha || '')));
   const totalGastos = sortedGastos.reduce((sum, gasto) => sum + Number(gasto.monto || 0), 0);
   const promedioGasto = totalGastos / sortedGastos.length;
   const userEmail = usuario?.email ? normalizeText(usuario.email, 64) : 'Usuario invitado';
@@ -64,24 +61,10 @@ export async function exportarGastosAPdf({ gastos, usuario }) {
 
   autoTable(doc, {
     startY: 62,
-    head: [[
-      'Fecha',
-      'Concepto',
-      'Categoría',
-      'Método de pago',
-      'Monto'
-    ]],
+    head: [['Fecha', 'Concepto', 'Categoría', 'Método de pago', 'Monto']],
     body: tableBody,
-    styles: {
-      fontSize: 10,
-      cellPadding: 3,
-      overflow: 'linebreak'
-    },
-    headStyles: {
-      fillColor: [4, 86, 197],
-      textColor: 255,
-      fontStyle: 'bold'
-    },
+    styles: { fontSize: 10, cellPadding: 3, overflow: 'linebreak' },
+    headStyles: { fillColor: [4, 86, 197], textColor: 255, fontStyle: 'bold' },
     columnStyles: {
       0: { cellWidth: 28 },
       1: { cellWidth: 80 },
@@ -89,19 +72,18 @@ export async function exportarGastosAPdf({ gastos, usuario }) {
       3: { cellWidth: 50 },
       4: { cellWidth: 30, halign: 'right' }
     },
-    didDrawPage: data => {
+    didDrawPage: () => {
       const pageSize = doc.internal.pageSize;
       const pageWidth = pageSize.getWidth();
       const pageHeight = pageSize.getHeight();
       doc.setFontSize(9);
       doc.text('Generado por Gasto Fácil', 14, pageHeight - 10);
       doc.text(`Fecha de generación: ${generationLabel}`, 14, pageHeight - 5);
-      const pageNumber = `Página ${doc.internal.getNumberOfPages()}`;
-      doc.text(pageNumber, pageWidth - 14, pageHeight - 5, { align: 'right' });
+      doc.text(`Página ${doc.internal.getNumberOfPages()}`, pageWidth - 14, pageHeight - 5, { align: 'right' });
     }
   });
 
   const filename = `reporte-gastos-${generationDate.getFullYear()}-${String(generationDate.getMonth() + 1).padStart(2, '0')}-${String(generationDate.getDate()).padStart(2, '0')}.pdf`;
-
-  doc.save(filename);
+  const blob = doc.output('blob');
+  return await guardarArchivoReporte(blob, filename);
 }
